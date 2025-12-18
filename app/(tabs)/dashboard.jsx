@@ -1,51 +1,46 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
+import Header from "../../components/Dashboard/Header";
+import QuickActions from "../../components/Dashboard/QuickAction";
+import ReportsList from "../../components/Dashboard/ReportsList";
+import RemindersList from "../../components/Dashboard/RemindersList";
+import HealthStats from "../../components/Dashboard/HealthStats";
+import SuggestedUsers from "../../components/Dashboard/SuggestedUsers";
 
-export default function Dashboard() {
+import ConnectionsScreen from "../../components/Connections";
+import ReportsScreen from "../../components/Reports";
+import Reminders from "../../components/Reminder";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const Stack = createStackNavigator();
+
+function Dashboard() {
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Welcome to Medi-Link</Text>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Patient Details</Text>
-        <Text>Name: Neha Sharma</Text>
-        <Text>Age: 22</Text>
-        <Text>Blood Group: B+</Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Allergies</Text>
-        <Text>Penicillin</Text>
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Medications</Text>
-        <Text>Paracetamol, Vitamin D</Text>
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Header name="Neha" emoji="👩‍⚕️" />
+
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <QuickActions />
+        <ReportsList />
+        <RemindersList />
+        <HealthStats />
+        <SuggestedUsers />
+      </ScrollView>
+    </View>
+  );
+}
+
+export default function DashboardStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Reports" component={ReportsScreen} />
+      <Stack.Screen name="Connections" component={ConnectionsScreen} />
+      <Stack.Screen name="Reminders" component={Reminders} />
+    </Stack.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#f9f9f9",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  card: {
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 8,
-  },
+  container: { flex: 1, backgroundColor: "#F8FAFD" },
+  scrollContent: { padding: 20, paddingBottom: 100 },
 });
